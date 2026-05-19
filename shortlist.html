@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1A2942">
+<title>The full list — Name the AI Clerk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  :root {
+    --cream: #FBF7F0;
+    --cream-2: #F2EBDD;
+    --navy: #1A2942;
+    --navy-2: #0F1A2C;
+    --ink: #2A3548;
+    --muted: #6B5D4C;
+    --gold: #D4A75A;
+    --terra: #B8533D;
+    --border: #E0D5C0;
+  }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.55;
+    background-image:
+      radial-gradient(at 10% 0%, rgba(212, 167, 90, 0.08) 0%, transparent 50%),
+      radial-gradient(at 90% 100%, rgba(184, 83, 61, 0.06) 0%, transparent 50%);
+    background-attachment: fixed;
+  }
+
+  /* ----- Top nav ----- */
+  .top-nav {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 20px 24px 0;
+  }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--terra);
+    text-decoration: none;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 8px 14px;
+    border-radius: 20px;
+    background: var(--cream-2);
+    transition: all 0.18s ease;
+  }
+  .back-link:hover { background: var(--navy); color: var(--cream); }
+
+  /* ----- Layout ----- */
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 24px 24px 80px;
+  }
+
+  /* ----- Hero ----- */
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--terra);
+    margin: 28px 0 12px;
+  }
+  h1.title {
+    font-weight: 900;
+    font-size: clamp(38px, 7vw, 56px);
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+    color: var(--navy);
+    margin: 0 0 20px;
+  }
+  h1.title em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--gold);
+  }
+  .intro {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--ink);
+    margin: 0 0 8px;
+    max-width: 60ch;
+  }
+  .intro-meta {
+    font-size: 13px;
+    color: var(--muted);
+    margin: 16px 0 0;
+  }
+
+  /* ----- Section header ----- */
+  .section-h {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--terra);
+    font-weight: 700;
+    margin: 56px 0 12px;
+  }
+  h2.section-title {
+    font-weight: 900;
+    font-size: clamp(28px, 5vw, 36px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--navy);
+    margin: 0 0 24px;
+  }
+  h2.section-title em { font-style: italic; font-weight: 300; color: var(--gold); }
+
+  /* ----- Pick cards ----- */
+  .pick {
+    margin-top: 36px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+  .pick:first-of-type { border-top: none; padding-top: 0; margin-top: 0; }
+  .pick-num {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--terra);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .pick-domain {
+    font-weight: 900;
+    font-size: clamp(32px, 6vw, 44px);
+    line-height: 1;
+    letter-spacing: -0.025em;
+    color: var(--navy);
+    margin: 0 0 8px;
+  }
+  .pick-domain .tld { color: var(--gold); font-weight: 700; }
+  .pick-tag {
+    font-style: italic;
+    font-weight: 400;
+    font-size: 18px;
+    color: var(--terra);
+    margin-bottom: 16px;
+    line-height: 1.35;
+  }
+  .pick-story {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--ink);
+    max-width: 60ch;
+    margin-bottom: 12px;
+  }
+  .pick-feels {
+    font-size: 14px;
+    color: var(--muted);
+    font-style: italic;
+    padding-left: 14px;
+    border-left: 3px solid var(--gold);
+    margin-top: 14px;
+    max-width: 58ch;
+    line-height: 1.55;
+  }
+  .pick-feels strong { font-style: normal; color: var(--navy); font-weight: 700; }
+
+  /* ----- Shortlist groups ----- */
+  .theme-group { margin-bottom: 22px; }
+  .theme-label {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--terra);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .theme-names {
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--navy);
+    font-weight: 700;
+  }
+  .theme-names .tld { color: var(--muted); font-weight: 400; }
+  .theme-names .dot { color: var(--gold); margin: 0 0.3em; font-weight: 700; }
+
+  /* ----- Bottom CTA ----- */
+  .cta {
+    margin-top: 60px;
+    padding: 32px;
+    background: var(--navy);
+    border-radius: 18px;
+    color: var(--cream);
+    text-align: center;
+  }
+  .cta h3 {
+    font-weight: 900;
+    font-size: clamp(22px, 4vw, 28px);
+    line-height: 1.15;
+    margin: 0 0 8px;
+    color: var(--cream);
+    letter-spacing: -0.02em;
+  }
+  .cta p {
+    font-size: 14px;
+    color: rgba(251, 247, 240, 0.75);
+    margin: 0 0 22px;
+  }
+  .cta-btn {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--navy);
+    font-size: 15px;
+    font-weight: 700;
+    padding: 14px 28px;
+    border-radius: 10px;
+    text-decoration: none;
+    letter-spacing: -0.01em;
+    transition: transform 0.18s ease;
+  }
+  .cta-btn:hover { transform: translateY(-2px); }
+
+  .foot {
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+
+<div class="top-nav">
+  <a class="back-link" href="index.html">← Back to vote</a>
+</div>
+
+<div class="wrap">
+  <div class="eyebrow">The full list · 45 names</div>
+  <h1 class="title">Naming the<br>AI <em>clerk.</em></h1>
+  <p class="intro">
+    Fifty-two domains survived the .ai availability scan. Six rose to the top six;
+    thirty-nine more are also yours to write in if none of the top picks land right.
+    Read through, pick a favorite, then head back to the vote.
+  </p>
+  <p class="intro-meta">
+    Availability verified May 18, 2026 via direct query to the .ai registry.
+  </p>
+
+  <!-- ============ TOP 6 PICKS ============ -->
+  <div class="section-h">The top 6</div>
+  <h2 class="section-title">The names with a <em>story.</em></h2>
+
+  <div class="pick">
+    <div class="pick-num">Pick One</div>
+    <div class="pick-domain">lawhand<span class="tld">.ai</span></div>
+    <div class="pick-tag">The hand behind the work.</div>
+    <p class="pick-story">
+      "Law-hand" is a real historical term — the ornate handwriting that scribes used
+      to draft legal documents centuries before typewriters existed. The name carries
+      its own story: it's the hand that does the writing, while the attorney does the
+      thinking, the meeting, and the courtroom. Built-in metaphor, no explaining needed.
+    </p>
+    <div class="pick-feels">
+      <strong>Feels like:</strong> a master scribe who already knows your house style and
+      has the brief ready before you ask.
+    </div>
+  </div>
+
+  <div class="pick">
+    <div class="pick-num">Pick Two</div>
+    <div class="pick-domain">firmhand<span class="tld">.ai</span></div>
+    <div class="pick-tag">Steady. Decisive. Always there.</div>
+    <p class="pick-story">
+      Two meanings, one wordmark. A firm hand is the kind of help that doesn't
+      second-guess itself — and a law firm runs on having someone reliable in every
+      chair. Reads professional without trying hard. The cleanest trademark surface
+      of the six: nothing else in legal-AI has claimed this metaphor.
+    </p>
+    <div class="pick-feels">
+      <strong>Feels like:</strong> the senior paralegal who never lets a deadline slip
+      and never makes the same mistake twice.
+    </div>
+  </div>
+
+  <div class="pick">
+    <div class="pick-num">Pick Three</div>
+    <div class="pick-domain">briefclerk<span class="tld">.ai</span></div>
+    <div class="pick-tag">Briefs, motions, exhibits — drafted overnight.</div>
+    <p class="pick-story">
+      Says exactly what it does. "Brief" is the unit of lawyer work; "clerk" is the
+      role that prepares everything for the attorney to sign. Of the six names here,
+      this is the one a stranger understands in one breath. No explanation, no metaphor,
+      no story to unpack. The product <em>is</em> the name.
+    </p>
+    <div class="pick-feels">
+      <strong>Feels like:</strong> a clerk who never sleeps, never asks for a raise,
+      and never types the wrong case number.
+    </div>
+  </div>
+
+  <div class="pick">
+    <div class="pick-num">Pick Four</div>
+    <div class="pick-domain">lawowl<span class="tld">.ai</span></div>
+    <div class="pick-tag">Wisdom that doesn't blink.</div>
+    <p class="pick-story">
+      The owl is the oldest symbol of wisdom in Western culture — Athena's owl,
+      the watchful judge, the bird that sees in the dark. This is the one name with a
+      built-in visual identity opportunity: every law firm has bookshelves and brass
+      statues, but no one's claimed the owl as a software mark. Sticky, ownable, distinct.
+    </p>
+    <div class="pick-feels">
+      <strong>Feels like:</strong> the wisdom that was waiting for you when you logged
+      in at 11pm with a motion due at nine.
+    </div>
+  </div>
+
+  <div class="pick">
+    <div class="pick-num">Pick Five</div>
+    <div class="pick-domain">casehand<span class="tld">.ai</span></div>
+    <div class="pick-tag">A hand for every case.</div>
+    <p class="pick-story">
+      Turns one of the strongest cues in this set — the "hand" metaphor — into
+      a per-case promise. Every matter gets its own dedicated AI hand: knows the
+      timeline, the parties, the next deadline. Naturally builds a brand family with
+      lawhand and firmhand — three "hands" that scale with how lawyers already think
+      about their work.
+    </p>
+    <div class="pick-feels">
+      <strong>Feels like:</strong> a paralegal assigned to every case the day it opens,
+      who never forgets a name, a date, or a footnote.
+    </div>
+  </div>
+
+  <div class="pick">
+    <div class="pick-num">Pick Six</div>
+    <div class="pick-domain">legalowl<span class="tld">.ai</span></div>
+    <div class="pick-tag">The owl that never sleeps.</div>
+    <p class="pick-story">
+      The boardroom-ready sibling of lawowl. Same Athena's-owl metaphor — classical
+      legal wisdom, distinct visual identity — but "legal" reads more formal than
+      "law" the way "attorney" reads more formal than "lawyer." Fits enterprise procurement,
+      GC offices, and partner-level conversations. Strongest case for it: register both
+      so a competitor can't fork the metaphor against you later.
+    </p>
+    <div class="pick-feels">
+      <strong>Feels like:</strong> the same owl — in a pressed shirt and cufflinks.
+    </div>
+  </div>
+
+  <!-- ============ THE FULL SHORTLIST ============ -->
+  <div class="section-h">39 more names</div>
+  <h2 class="section-title">The full available <em>shortlist.</em></h2>
+  <p class="intro" style="margin-bottom: 32px;">
+    Grouped by the metaphor each one leans on. Any name below is registerable today
+    and can be your write-in pick on the vote page.
+  </p>
+
+  <div class="theme-group">
+    <div class="theme-label">The Hand — right hand of the firm</div>
+    <div class="theme-names">
+      briefhand<span class="tld">.ai</span> <span class="dot">·</span>
+      counselhand<span class="tld">.ai</span> <span class="dot">·</span>
+      dockethand<span class="tld">.ai</span> <span class="dot">·</span>
+      matterhand<span class="tld">.ai</span> <span class="dot">·</span>
+      parahand<span class="tld">.ai</span>
+    </div>
+  </div>
+
+  <div class="theme-group">
+    <div class="theme-label">The Clerk — the role, made software</div>
+    <div class="theme-names">
+      counselclerk<span class="tld">.ai</span> <span class="dot">·</span>
+      trialclerk<span class="tld">.ai</span>
+    </div>
+  </div>
+
+  <div class="theme-group">
+    <div class="theme-label">The Desk — where the work gets done</div>
+    <div class="theme-names">
+      firmdesk<span class="tld">.ai</span> <span class="dot">·</span>
+      trialdesk<span class="tld">.ai</span> <span class="dot">·</span>
+      docketdesk<span class="tld">.ai</span> <span class="dot">·</span>
+      paradesk<span class="tld">.ai</span>
+    </div>
+  </div>
+
+  <div class="theme-group">
+    <div class="theme-label">The Forge — where briefs are hammered out</div>
+    <div class="theme-names">
+      lawanvil<span class="tld">.ai</span> <span class="dot">·</span>
+      legalanvil<span class="tld">.ai</span> <span class="dot">·</span>
+      briefforge<span class="tld">.ai</span> <span class="dot">·</span>
+      firmforge<span class="tld">.ai</span> <span class="dot">·</span>
+      paraforge<span class="tld">.ai</span>
+    </div>
+  </div>
+
+  <div class="theme-group">
+    <div class="theme-label">The Mind — cognition forward</div>
+    <div class="theme-names">
+      lawthink<span class="tld">.ai</span> <span class="dot">·</span>
+      lawedge<span class="tld">.ai</span> <span class="dot">·</span>
+      lawspark<span class="tld">.ai</span> <span class="dot">·</span>
+      counselaide<span class="tld">.ai</span> <span class="dot">·</span>
+      matterops<span class="tld">.ai</span>
+    </div>
+  </div>
+
+  <div class="theme-group">
+    <div class="theme-label">The Speed — throughput as the brand</div>
+    <div class="theme-names">
+      lawflash<span class="tld">.ai</span> <span class="dot">·</span>
+      lawjet<span class="tld">.ai</span> <span class="dot">·</span>
+      lawswift<span class="tld">.ai</span> <span class="dot">·</span>
+      lawmotor<span class="tld">.ai</span> <span class="dot">·</span>
+      lawgear<span class="tld">.ai</span> <span class="dot">·</span>
+      lawship<span class="tld">.ai</span> <span class="dot">·</span>
+      lawready<span class="tld">.ai</span>
+    </div>
+  </div>
+
+  <div class="theme-group">
+    <div class="theme-label">The Wisdom — classical legal iconography</div>
+    <div class="theme-names">
+      legalship<span class="tld">.ai</span>
+    </div>
+  </div>
+
+  <div class="theme-group">
+    <div class="theme-label">The Sidekick — named for the role itself</div>
+    <div class="theme-names">
+      lawsidekick<span class="tld">.ai</span> <span class="dot">·</span>
+      lawjury<span class="tld">.ai</span> <span class="dot">·</span>
+      paramate<span class="tld">.ai</span> <span class="dot">·</span>
+      firmmate<span class="tld">.ai</span> <span class="dot">·</span>
+      briefcrew<span class="tld">.ai</span> <span class="dot">·</span>
+      firmcrew<span class="tld">.ai</span> <span class="dot">·</span>
+      counselcrew<span class="tld">.ai</span> <span class="dot">·</span>
+      mattercrew<span class="tld">.ai</span> <span class="dot">·</span>
+      docketcrew<span class="tld">.ai</span> <span class="dot">·</span>
+      paracrew<span class="tld">.ai</span>
+    </div>
+  </div>
+
+  <!-- ============ BOTTOM CTA ============ -->
+  <div class="cta">
+    <h3>Found your pick?</h3>
+    <p>Head back to the vote and tap one — or write in any name from the list above.</p>
+    <a class="cta-btn" href="index.html">Cast your vote →</a>
+  </div>
+
+  <div class="foot">
+    All 45 names verified available at the .ai registry · May 18, 2026
+  </div>
+</div>
+
+</body>
+</html>

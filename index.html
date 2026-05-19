@@ -104,6 +104,75 @@
     color: var(--muted);
     margin: 0 0 8px;
   }
+  .lede-cta {
+    font-size: 13px;
+    color: var(--terra);
+    font-weight: 600;
+    margin: 4px 0 0 0;
+  }
+  .lede-cta a {
+    color: var(--terra);
+    text-decoration: none;
+    border-bottom: 1.5px solid var(--terra);
+    padding-bottom: 1px;
+  }
+  .lede-cta a:hover { color: var(--navy); border-color: var(--navy); }
+  .writein {
+    margin-top: 28px;
+    padding: 22px 20px;
+    background: var(--cream-2);
+    border-radius: 14px;
+    border: 1.5px dashed var(--border);
+  }
+  .writein-divider {
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--terra);
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+  .writein-input {
+    width: 100%;
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy);
+    font-family: inherit;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+    box-sizing: border-box;
+  }
+  .writein-input:focus {
+    outline: none;
+    border-color: var(--navy);
+    box-shadow: 0 0 0 3px rgba(26, 41, 66, 0.1);
+  }
+  .writein-input.invalid { border-color: var(--terra); }
+  .writein-hint {
+    margin-top: 10px;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.45;
+  }
+  .writein-hint a {
+    color: var(--terra);
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 1px solid var(--terra);
+  }
+  .writein-hint a:hover { color: var(--navy); border-color: var(--navy); }
+  .writein-error {
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--terra);
+    font-weight: 700;
+    display: none;
+  }
+  .writein-error.visible { display: block; }
   .live-badge {
     display: inline-flex;
     align-items: center;
@@ -371,9 +440,11 @@
     <div class="eyebrow">Pick yours · 30 seconds</div>
     <h1 class="title">Name the<br>AI <em>clerk.</em></h1>
     <p class="lede">
-      Five names survived the search. Tap the one that makes you want to send it
-      to your attorney friend. Comment optional. Name optional. There are no
-      wrong answers.
+      Here are the current top 6. Tap one — or write in another from the qualified list.
+      Comment optional. Name optional. There are no wrong answers.
+    </p>
+    <p class="lede-cta">
+      Not feeling any of these? <a href="shortlist.html">Browse the full list of 47 more →</a>
     </p>
     <div class="live-badge" id="liveBadge">
       <span class="dot"></span>
@@ -424,6 +495,20 @@
       </button>
     </div>
 
+    <div class="writein">
+      <div class="writein-divider">— or write in your own pick —</div>
+      <input list="qualifiedNames" id="writeinInput" class="writein-input"
+             placeholder="e.g. lawanvil.ai" autocapitalize="off" autocomplete="off"
+             spellcheck="false" inputmode="text">
+      <datalist id="qualifiedNames"></datalist>
+      <div class="writein-hint">
+        Must come from the <a href="shortlist.html">qualified list (39 more names) →</a>
+      </div>
+      <div class="writein-error" id="writeinError">
+        Hmm, that's not in the qualified list. Check spelling or browse the list above.
+      </div>
+    </div>
+
     <div class="extras">
       <div class="field">
         <label class="field-label" for="comment">Why this one? (optional)</label>
@@ -458,22 +543,93 @@
   // ============================================================
   const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzs67kIwn5yV_u9qlDkMHV8qkvpVGdAIs3858AudDrBMVhQGdzwCujqWQJohGevqx8O6Q/exec';
 
+  // The 39 qualified shortlist names that can be written in.
+  const SHORTLIST_PICKS = [
+    // The Hand
+    'briefhand.ai', 'counselhand.ai', 'dockethand.ai', 'matterhand.ai', 'parahand.ai',
+    // The Clerk
+    'counselclerk.ai', 'trialclerk.ai',
+    // The Desk
+    'firmdesk.ai', 'trialdesk.ai', 'docketdesk.ai', 'paradesk.ai',
+    // The Forge
+    'lawanvil.ai', 'legalanvil.ai', 'briefforge.ai', 'firmforge.ai', 'paraforge.ai',
+    // The Mind
+    'lawthink.ai', 'lawedge.ai', 'lawspark.ai', 'counselaide.ai', 'matterops.ai',
+    // The Speed
+    'lawflash.ai', 'lawjet.ai', 'lawswift.ai', 'lawmotor.ai', 'lawgear.ai',
+    'lawship.ai', 'lawready.ai',
+    // The Wisdom
+    'legalship.ai',
+    // The Sidekick
+    'lawsidekick.ai', 'lawjury.ai', 'paramate.ai', 'firmmate.ai', 'briefcrew.ai',
+    'firmcrew.ai', 'counselcrew.ai', 'mattercrew.ai', 'docketcrew.ai', 'paracrew.ai'
+  ];
+  const TOP_PICKS = ['lawhand.ai', 'firmhand.ai', 'briefclerk.ai',
+                     'lawowl.ai', 'casehand.ai', 'legalowl.ai'];
+  const QUALIFIED_PICKS = [...TOP_PICKS, ...SHORTLIST_PICKS];
+
   const cards = document.querySelectorAll('.card');
   const submitBtn = document.getElementById('submitBtn');
   const commentEl = document.getElementById('comment');
   const nameEl = document.getElementById('name');
   const liveBadge = document.getElementById('liveBadge');
   const liveBadgeText = document.getElementById('liveBadgeText');
+  const writeinInput = document.getElementById('writeinInput');
+  const writeinError = document.getElementById('writeinError');
+  const datalist = document.getElementById('qualifiedNames');
   let selected = null;
 
-  // Selection handling
+  // Populate the write-in datalist with all 39 shortlist names
+  SHORTLIST_PICKS.forEach(name => {
+    const opt = document.createElement('option');
+    opt.value = name;
+    datalist.appendChild(opt);
+  });
+
+  // Returns the active pick: write-in value (if non-empty) trumps card selection.
+  function activePick() {
+    const wi = (writeinInput.value || '').trim().toLowerCase();
+    if (wi) return wi;
+    return selected;
+  }
+
+  function updateSubmitState() {
+    const pick = activePick();
+    if (!pick) { submitBtn.disabled = true; return; }
+    // If using write-in, must be in qualified list to enable submit
+    const wi = (writeinInput.value || '').trim().toLowerCase();
+    if (wi) {
+      const valid = QUALIFIED_PICKS.includes(wi);
+      submitBtn.disabled = !valid;
+      writeinError.classList.toggle('visible', wi.length >= 3 && !valid);
+      writeinInput.classList.toggle('invalid', wi.length >= 3 && !valid);
+    } else {
+      submitBtn.disabled = false;
+      writeinError.classList.remove('visible');
+      writeinInput.classList.remove('invalid');
+    }
+  }
+
+  // Card click handler: select card, clear write-in
   cards.forEach(card => {
     card.addEventListener('click', () => {
       cards.forEach(c => c.classList.remove('selected'));
       card.classList.add('selected');
       selected = card.dataset.pick;
-      submitBtn.disabled = false;
+      writeinInput.value = '';
+      writeinError.classList.remove('visible');
+      writeinInput.classList.remove('invalid');
+      updateSubmitState();
     });
+  });
+
+  // Write-in input handler: clear card selection on typing
+  writeinInput.addEventListener('input', () => {
+    if ((writeinInput.value || '').trim()) {
+      cards.forEach(c => c.classList.remove('selected'));
+      selected = null;
+    }
+    updateSubmitState();
   });
 
   // Load current tally on page open (social proof)
@@ -515,7 +671,15 @@
 
   // Submit handler
   submitBtn.addEventListener('click', async () => {
-    if (!selected) return;
+    const pick = activePick();
+    if (!pick) return;
+
+    // Defensive: re-validate write-in just before send
+    if (!QUALIFIED_PICKS.includes(pick)) {
+      writeinError.classList.add('visible');
+      writeinInput.classList.add('invalid');
+      return;
+    }
 
     if (!APPS_SCRIPT_URL) {
       alert('Preview mode — paste the deployed Apps Script URL into vote.html to enable submission.');
@@ -525,7 +689,7 @@
     submitBtn.classList.add('loading');
 
     const payload = {
-      pick: selected,
+      pick: pick,
       comment: commentEl.value.trim(),
       name: nameEl.value.trim()
     };
