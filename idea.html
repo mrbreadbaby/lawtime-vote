@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1A2942">
+<title>The idea — Name the AI Clerk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  :root {
+    --cream: #FBF7F0;
+    --cream-2: #F2EBDD;
+    --navy: #1A2942;
+    --navy-2: #0F1A2C;
+    --ink: #2A3548;
+    --muted: #6B5D4C;
+    --gold: #D4A75A;
+    --terra: #B8533D;
+    --border: #E0D5C0;
+  }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.55;
+    background-image:
+      radial-gradient(at 10% 0%, rgba(212, 167, 90, 0.08) 0%, transparent 50%),
+      radial-gradient(at 90% 100%, rgba(184, 83, 61, 0.06) 0%, transparent 50%);
+    background-attachment: fixed;
+  }
+
+  /* Top nav */
+  .top-nav {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 20px 24px 0;
+  }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--terra);
+    text-decoration: none;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 8px 14px;
+    border-radius: 20px;
+    background: var(--cream-2);
+    transition: all 0.18s ease;
+  }
+  .back-link:hover { background: var(--navy); color: var(--cream); }
+
+  /* Layout */
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 24px 80px;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--terra);
+    margin: 36px 0 16px;
+  }
+
+  h1.hero {
+    font-weight: 900;
+    font-size: clamp(38px, 7vw, 60px);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    color: var(--navy);
+    margin: 0 0 36px;
+  }
+  h1.hero em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--gold);
+  }
+
+  .body p {
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--ink);
+    margin: 0 0 22px;
+    max-width: 58ch;
+  }
+  .body p em {
+    color: var(--terra);
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  /* What it does grid */
+  .does-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px;
+    margin: 40px 0 16px;
+  }
+  .does-item {
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+  }
+  .does-item-num {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .does-item-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.25;
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+  .does-item-detail {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  /* The division line */
+  .division {
+    margin: 44px 0;
+    padding: 28px;
+    background: var(--navy);
+    border-radius: 16px;
+    color: var(--cream);
+  }
+  .division h2 {
+    font-size: clamp(22px, 4vw, 28px);
+    font-weight: 900;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin: 0 0 10px;
+    color: var(--cream);
+  }
+  .division h2 em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--gold);
+  }
+  .division p {
+    font-size: 15px;
+    color: rgba(251, 247, 240, 0.85);
+    margin: 0;
+    line-height: 1.55;
+    max-width: 50ch;
+  }
+
+  /* Bottom CTA */
+  .cta {
+    margin-top: 56px;
+    text-align: center;
+  }
+  .cta-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--terra);
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+  .cta h3 {
+    font-weight: 900;
+    font-size: clamp(28px, 5vw, 38px);
+    line-height: 1.1;
+    margin: 0 0 22px;
+    color: var(--navy);
+    letter-spacing: -0.025em;
+  }
+  .cta-btn {
+    display: inline-block;
+    background: var(--navy);
+    color: var(--cream);
+    font-size: 16px;
+    font-weight: 700;
+    padding: 16px 32px;
+    border-radius: 12px;
+    text-decoration: none;
+    letter-spacing: -0.01em;
+    transition: transform 0.18s ease, background 0.18s ease;
+    box-shadow: 0 4px 16px rgba(26, 41, 66, 0.1);
+  }
+  .cta-btn:hover { transform: translateY(-2px); background: var(--navy-2); }
+  .cta-sub {
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .cta-sub a {
+    color: var(--terra);
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 1px solid var(--terra);
+  }
+</style>
+</head>
+<body>
+
+<div class="top-nav">
+  <a class="back-link" href="index.html">← Back to vote</a>
+</div>
+
+<div class="wrap">
+  <div class="eyebrow">The idea</div>
+  <h1 class="hero">
+    A clerk who does everything <em>except</em> show up to court.
+  </h1>
+
+  <div class="body">
+    <p>
+      Every name we're voting on is for the same thing: an AI that drafts your
+      briefs, pulls your exhibits, indexes your discovery, watches your calendar,
+      and <em>never asks for a raise</em>.
+    </p>
+    <p>
+      Think of it as the senior paralegal who never sleeps — the one who's already
+      pulled the chronology before you ask, knows every party in every matter, and
+      has the next motion drafted by morning.
+    </p>
+  </div>
+
+  <div class="does-grid">
+    <div class="does-item">
+      <div class="does-item-num">01</div>
+      <div class="does-item-title">Drafts your briefs</div>
+      <div class="does-item-detail">Motions, declarations, demand letters — in your firm's voice, with proper citations.</div>
+    </div>
+    <div class="does-item">
+      <div class="does-item-num">02</div>
+      <div class="does-item-title">Indexes discovery</div>
+      <div class="does-item-detail">Reads everything, tags it, tells you what matters and what's missing.</div>
+    </div>
+    <div class="does-item">
+      <div class="does-item-num">03</div>
+      <div class="does-item-title">Watches the calendar</div>
+      <div class="does-item-detail">Tracks deadlines, hearings, statutes of limitations. Nothing slips.</div>
+    </div>
+    <div class="does-item">
+      <div class="does-item-num">04</div>
+      <div class="does-item-title">Pulls the exhibits</div>
+      <div class="does-item-detail">Finds the doc, marks the page, builds the binder — ready to file.</div>
+    </div>
+  </div>
+
+  <div class="division">
+    <h2>The attorney does the <em>judgment.</em><br>The clerk does the <em>rest.</em></h2>
+    <p>
+      Court appearances, client conversations, the strategic calls — those stay
+      with you. Everything else — the prep, the pulling, the drafting, the
+      tracking — gets handled.
+    </p>
+  </div>
+
+  <div class="cta">
+    <div class="cta-eyebrow">Ready?</div>
+    <h3>Help us name it.</h3>
+    <a class="cta-btn" href="index.html">Pick a name →</a>
+    <p class="cta-sub">
+      Or <a href="shortlist.html">browse the full list of 45 candidates</a> first.
+    </p>
+  </div>
+</div>
+
+</body>
+</html>
